@@ -1,0 +1,43 @@
+in simple words tell me the flow of what it does when a user submits the credentials in login
+page in login.jsx in pages folder?
+
+1.User submits login form in your React frontend: 
+axios.post(`${VITE_API_URL}/login`, { email, password });
+
+2.Frontend sends the login data to the backend (/login route).
+3.The request first hits index.js: 
+app.use('/', userRoutes); => this lines send the request to your router file (usrRoutes.js)
+
+4.In userRoutes.js, you’ve written: router.post('/login', loginUser);
+This means: "If someone hits /login, call the loginUser function." loginUser function is in controller
+
+5.Now it calls the Controller: 
+const loginUser = async (req, res) => { ... }the controller handles:
+Checking if user exists
+Verifying password
+Sending back a token
+
+6.If login is successful:
+The controller sends a response with:
+js
+Copy
+Edit
+res.status(200).json({ user, token });
+
+7.The frontend again the serviceAuthreceives the response, stores the token (in localStorage or cookies), and redirects the user.
+
+8. after receiving the response it send the route to app.jsx where it handles what page to navigate and then it hits the main.jsx which at last renders the page
+
+//  What is the Role of authServices.jsx (or .js) in Frontend (React)?
+In simple words:
+
+authServices.js is a helper file in your frontend that keeps all the API calling functions related to authentication (like login, signup, logout) in one place.
+
+ if i want to use data from the login to send it to userAuth so it can send to index.js 
+i should use ref or usestate?>
+
+Why useState instead of useRef?
+useState	useRef
+✅ React re-renders when data changes	  ❌ React does NOT re-render when ref changes
+Used for dynamic data flow between components	Used for persisting values across renders                                  without triggering updates
+Perfect for forms, login inputs, auth states	Best for DOM refs or timers
