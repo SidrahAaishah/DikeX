@@ -23,7 +23,7 @@ const options = {
 
 DBconnection();
 
-app.use('/', userRoutes);
+app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 https.createServer(options, app).listen(PORT, () => {

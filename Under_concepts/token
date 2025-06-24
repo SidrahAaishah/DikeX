@@ -1,0 +1,11 @@
+When you login, your backend usually sends back a JWT (JSON Web Token) — a compact string that contains:
+
+User identity info (like name, email, etc.)
+
+Expiry timestamp
+
+A signature (so the server can verify it's not been tampered with)
+
+This is what gets saved in localStorage like:
+
+localStorage.setItem('token', res.data.token);

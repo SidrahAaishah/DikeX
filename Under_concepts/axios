@@ -1,0 +1,24 @@
+axios is a promise-based HTTP client for the browser and Node.js. It allows your frontend (React, Vue, plain JS, etc.) to communicate with backend servers/APIs over the internet using HTTP methods like:
+
+GET – fetch data
+
+POST – send data
+
+PUT/PATCH – update data
+
+DELETE – remove data
+
+// what is the difference between the path /api/profile and /profile
+Adding /api to a route is just a naming convention — it doesn’t do anything special on its own, but it helps to:
+. Separate frontend routes from backend (API) routes
+Example:
+
+/login → could serve your React frontend (e.g., a login page)
+
+/api/login → serves your API (i.e., returns JSON, not HTML)
+
+This way:
+
+https://yourapp.com/login = browser route for user
+
+https://yourapp.com/api/login = backend endpoint for axios/postma

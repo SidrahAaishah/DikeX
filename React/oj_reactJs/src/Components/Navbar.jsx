@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   return (
     <>
       {/* Top Bar */}
@@ -25,7 +25,7 @@ const Navbar = () => {
               Contact
             </a>
 
-            {/* Profile dropdown */}
+            {/* Profile Dropdown */}
             <div className="relative">
               <button
                 id="dropdownUserAvatarButton"
@@ -41,46 +41,54 @@ const Navbar = () => {
                 />
               </button>
 
+              {/* Dropdown Menu */}
               <div
                 id="dropdownAvatar"
-                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute right-0"
+                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute right-0 mt-2"
               >
-                <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                  <div>John Doe</div>
-                  <div className="font-medium truncate">john.doe@example.com</div>
-                </div>
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                  aria-labelledby="dropdownUserAvatarButton"
-                >
-                  <li>
-                    <a
-                      href="/dashboard"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                {user ? (
+                  <>
+                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                      <div>{user.name}</div>
+                      <div className="font-medium truncate">{user.email}</div>
+                    </div>
+                    <ul
+                      className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="dropdownUserAvatarButton"
                     >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/settings"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                </ul>
-                <div className="py-2">
-                  <a
-                    href="/logout"
-                    className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white"
-                  >
-                    Logout
-                  </a>
-                </div>
+                      <li>
+                        <a
+                          href="/dashboard"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Dashboard
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/settings"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Settings
+                        </a>
+                      </li>
+                    </ul>
+                    <div className="py-2">
+                      <a
+                        href="/login"
+                        className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white"
+                      >
+                        Logout
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                    Loading user...
+                  </div>
+                )}
               </div>
             </div>
-            {/* End Profile dropdown */}
           </div>
         </div>
       </nav>
@@ -94,7 +102,6 @@ const Navbar = () => {
                 <a
                   href="/"
                   className="text-gray-900 dark:text-white hover:underline"
-                  aria-current="page"
                 >
                   Home
                 </a>

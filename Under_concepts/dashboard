@@ -1,0 +1,29 @@
+ur Goal: Show Logged-in Name on Dashboard
+You have two options:
+
+✅ Option 1: Decode token locally (frontend)
+If your token is a JWT, you can decode it (without verifying the signature) to get info like name or email
+
+import jwtDecode from 'jwt-decode';
+
+const token = localStorage.getItem("token");
+const decoded = jwtDecode(token);
+console.log(decoded.name); // if the backend included `name` in the payload
+
+✅ Pros: No extra API call.
+⚠️ Cons: Don't trust sensitive info fully — it's just base64 encoded.
+
+✅ Option 2: Fetch user profile from backend
+Use the token to make a request like:
+
+
+const token = localStorage.getItem("token");
+const res = await axios.get('/api/me', {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+console.log(res.data.name);
+✅ Pros: Always secure & up-to-date
+⚠️ Cons: Extra API call
+
