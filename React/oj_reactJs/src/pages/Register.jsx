@@ -1,19 +1,28 @@
 import { useState } from 'react';
 import { registerUser } from '../Services/authService';
+import RegisterForm from '../Components/RegisterForm';
 
 function Register() {
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.password !== form.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
     try {
       const res = await registerUser(form);
       alert(res.data || "Registered successfully!");
@@ -23,14 +32,11 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <input name="firstName" placeholder="First Name" onChange={handleChange} /><br />
-      <input name="lastName" placeholder="Last Name" onChange={handleChange} /><br />
-      <input name="email" placeholder="Email" onChange={handleChange} /><br />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br />
-      <button onClick={handleSubmit}>Register</button>
-    </div>
+    <RegisterForm
+      form={form}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 }
 

@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {loginUser} from '../Services/authService'
 import { useNavigate } from 'react-router-dom';
-
+import LoginForm from '../Components/LoginForm';
 function Login(){
     const navigate = useNavigate();
     const [form , setForm] = useState({
@@ -28,10 +28,11 @@ function Login(){
 
     return (
     <div>
-      <h2>Login</h2>
-      <input name="email" placeholder="Email" onChange={handleChange} value={form.email}/><br />
-      <input name="password" type="password" onChange={handleChange} value={form.password}/><br />
-      <button onClick={handleSubmit}>Login</button>
+        <LoginForm
+            form ={form}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+        />
     </div>
     );
 
