@@ -1,6 +1,67 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { initFlowbite } from 'flowbite';
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
+  const { user, loading } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    initFlowbite();
+  }, []);
+
+  const renderUserDropdown = () => {
+    if (loading) {
+      return (
+        <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+          Loading user...
+        </div>
+      );
+    }
+
+    if (!user) {
+      return (
+        <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+          Not logged in
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+          <div>{user.name}</div>
+          <div className="font-medium truncate">{user.email}</div>
+        </div>
+        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <li>
+            <a
+              href="/dashboard"
+              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a
+              href="/settings"
+              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              Settings
+            </a>
+          </li>
+        </ul>
+        <div className="py-2">
+          <a
+            href="/login"
+            className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white"
+          >
+            Logout
+          </a>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       {/* Top Bar */}
@@ -46,47 +107,7 @@ const Navbar = ({ user }) => {
                 id="dropdownAvatar"
                 className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute right-0 mt-2"
               >
-                {user ? (
-                  <>
-                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                      <div>{user.name}</div>
-                      <div className="font-medium truncate">{user.email}</div>
-                    </div>
-                    <ul
-                      className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                      aria-labelledby="dropdownUserAvatarButton"
-                    >
-                      <li>
-                        <a
-                          href="/dashboard"
-                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          Dashboard
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/settings"
-                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          Settings
-                        </a>
-                      </li>
-                    </ul>
-                    <div className="py-2">
-                      <a
-                        href="/login"
-                        className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white"
-                      >
-                        Logout
-                      </a>
-                    </div>
-                  </>
-                ) : (
-                  <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                    Loading user...
-                  </div>
-                )}
+                {renderUserDropdown()}
               </div>
             </div>
           </div>
@@ -100,7 +121,7 @@ const Navbar = ({ user }) => {
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               <li>
                 <a
-                  href="/"
+                  href="/dashboard"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
                   Home
@@ -108,15 +129,15 @@ const Navbar = ({ user }) => {
               </li>
               <li>
                 <a
-                  href="/problems"
+                  href="/dashboard/problemset"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
-                  Problems
+                  ProblemSet
                 </a>
               </li>
               <li>
                 <a
-                  href="/contests"
+                  href="/dashboard/contests"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
                   Contests
@@ -124,7 +145,7 @@ const Navbar = ({ user }) => {
               </li>
               <li>
                 <a
-                  href="/submissions"
+                  href="/dashboard/submissions"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
                   Submissions
@@ -132,7 +153,7 @@ const Navbar = ({ user }) => {
               </li>
               <li>
                 <a
-                  href="/leaderboard"
+                  href="/dashboard/leaderboard"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
                   Leaderboard

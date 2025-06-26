@@ -1,29 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { getCurrentUser } from '../Services/authService';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
+  const { user, loading } = useSelector((state) => state.auth);
 
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const res = await getCurrentUser();
-      console.log("User fetched:", res.data); // Debug
-      setUser(res.data);
-    } catch (err) {
-      console.error("User fetch failed", err); // See why it's failing
-    }
-  };
+  if (loading) return <div>Loading...</div>;
 
-  fetchUser();
-}, []);
-
+  console.log("User in Redux: ", user); // ✅ this should log the correct user
 
   return (
     <>
-      <Navbar user={user} />
+      <Navbar/>
       <Footer />
     </>
   );
