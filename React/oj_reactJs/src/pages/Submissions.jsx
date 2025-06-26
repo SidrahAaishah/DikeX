@@ -1,7 +1,7 @@
 import { useState } from 'react';
 function Submissions() {
     return (
-        <div>Hello</div>
+        <div>Submissions</div>
     );
 }
 export default Submissions

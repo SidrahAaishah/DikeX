@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { initFlowbite } from 'flowbite';
+import { handleLogout } from '../utilities/utils';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const { user, loading } = useSelector((state) => state.auth);
+   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     initFlowbite();
@@ -51,12 +57,12 @@ const Navbar = () => {
           </li>
         </ul>
         <div className="py-2">
-          <a
+          <button onClick={()=>handleLogout(dispatch,navigate)}
             href="/login"
             className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-white"
           >
             Logout
-          </a>
+          </button>
         </div>
       </>
     );
