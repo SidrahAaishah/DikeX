@@ -1,0 +1,30 @@
+✅ Redux vs Token: Two Different Jobs
+Feature	Purpose	Lifespan	Location
+Redux store	Manages frontend state (e.g., UI knows user is logged in)	Temporary (cleared on refresh unless persisted)	In memory
+Token (JWT)	Authenticates requests to backend APIs	Persistent (until expired or removed)	Stored in localStorage or cookie
+
+redux store cleared once refreshed
+
+ Why not just use Redux state?
+Because Redux is frontend-only and has no power to authenticate with your backend API.
+
+✅ Example:
+✅ Example:
+Imagine you want to get the user’s submissions after login:
+
+js
+Copy
+Edit
+axios.get('/api/submissions', {
+  headers: {
+    Authorization: `Bearer ${token}` // 🔐 REQUIRED
+});
+Even though you have the user info in Redux, the backend won’t allow access unless you provide the token. The server:
+
+Doesn’t know or care what’s in your Redux store.
+
+Only trusts the token to identify and authorize the user.
+
+
+// as when refreshed the redux store data clear up so use 
+Redux + token + getCurrentUser()-->api call to get the token

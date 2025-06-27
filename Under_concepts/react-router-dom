@@ -1,0 +1,46 @@
+TL;DR:
+BrowserRouter = enables routing using the URL bar.
+
+Routes = holds all your route definitions.
+
+Route = maps a URL path to a React component.
+
+// layout and components folder differmece
+1. Component = Any reusable piece of UI
+Everything in React is a component — a button, navbar, card, form, page, etc.
+
+Examples:
+function Navbar() {
+  return <nav>My Site</nav>;
+}
+
+function Button() {
+  return <button>Click me</button>;
+}
+Even a Layout is a component — just a special kind.
+
+ 2. Layout = A specific kind of component used to wrap pages
+A layout is a component designed to provide structure and consistency across pages.
+
+It usually includes:
+
+Navigation bar
+
+Sidebar
+
+Footer
+
+Wrapper for Outlet (where child routes/pages load)
+
+Example:|
+function Layout() {
+  return (
+    <div>
+      <Navbar />
+      <main>
+        <Outlet /> {/* child page goes here */}
+      </main>
+      <Footer />
+    </div>
+  );
+}

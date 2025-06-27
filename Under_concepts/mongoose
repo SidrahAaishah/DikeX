@@ -1,0 +1,13 @@
+for the models
+
+odm - object document mapping (for no sql queries)
+orm-object relational mapping (for sql queies)
+
+mongoose is odm 
+
+so these odm or orm allowed us to use some inbuilt functions that saves us from wring the database code from scratch like we can leverage the function of .select or .find insteacd of writing like *SELECT FROM .........
+
+
+in sql we use tables and rows and columns simiiarly in nosql use use schema
+
+CORS (cross origin resourse sharing)![alt text](image-1.png)

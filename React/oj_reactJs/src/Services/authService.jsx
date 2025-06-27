@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = 'https://localhost:5000';
 
 const instance = axios.create({
-  baseURL: 'https://localhost:5000/api', // 👈 cleaner
+  baseURL: `${API_URL}/api` , // 👈 cleaner
 });
 
 export const registerUser = (RegistrationData) => {

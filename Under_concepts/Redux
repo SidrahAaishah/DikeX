@@ -1,0 +1,50 @@
+What is redux?
+Alright! Imagine you're in class 5 and you're the class monitor. Every day, students shout out what they want to do — "I want to play!", "I want to read!", "I lost my pencil!", and so on. It gets really confusing!
+
+So, your teacher gives you a big notebook (let’s call it Redux) to help keep things organized.
+
+Here’s how it works:
+
+1. The Notebook (Redux Store)
+This is where you write everything happening in the class. It keeps track of who wants what and what’s going on.
+
+2. The Rules (Reducers)
+You can't just write anything. There are rules for how you write things down. If a student says, “I want to play,” you check the rule and write it as:
+{ name: "Ravi", activity: "play" }.
+
+3. The Messages (Actions)
+When someone wants to do something, they don’t just shout. They give you a note (action) that says:
+I want to do this thing.
+Like:
+
+js
+Copy
+Edit
+{ type: "WANT_TO_PLAY", name: "Ravi" }
+4. You, the Monitor (Redux Itself)
+You take that message (action), look at the rulebook (reducers), and update the notebook (store) properly.
+
+A Real-Life Example (In an App)
+Let’s say you're using a shopping app.
+
+You add a toy to your cart → that's an action.
+
+Redux checks how the cart should change → using a reducer.
+
+Then it updates the cart in one place → the store.
+
+Any part of the app (like the cart icon) can look into the store and show the updated number.
+
+Why Redux is Cool:
+It keeps everything in one place (like your notebook).
+
+It follows rules, so there’s no confusion.
+
+It helps apps stay organized, even when they become big and messy.
+
+ /// Noodle example from the redux lecture
+
+1. Action - (type = "New_customer_order", payload = ({dishname: "Noodle",specialInstruction: "Ectra chilli oil"}))
+2.Dispatcher
+3.Reducer  - (kitchen manager)
+4.store - 
