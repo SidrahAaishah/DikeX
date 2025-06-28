@@ -64,5 +64,5 @@ export default {
       }
     }
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [require('tailwind-scrollbar-hide')],
 };

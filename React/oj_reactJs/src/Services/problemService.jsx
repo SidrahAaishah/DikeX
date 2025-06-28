@@ -7,3 +7,4 @@ const instance = axios.create({
 });
 
 export const fetchProblems = () => instance.get('/problems');
+export const fetchProblemById = (id) => instance.get(`/problems/${id}`);

@@ -5,10 +5,12 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
+import LandingPage from './pages/LandingPage'
 import Contests from './pages/Contests';
 import Leaderboard from './pages/Leaderboard';
 import Problemset from './pages/Problemset';
 import Submissions from './pages/Submissions';
+import Solve from './pages/Solve';
 import Layout from './Components/layout';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { useDispatch } from 'react-redux';
@@ -40,7 +42,7 @@ useEffect(() => {
 
   return (
     <Routes>
-      <Route path="/" element={<Register />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path='/register' element={<Register/>}/>
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
@@ -49,6 +51,7 @@ useEffect(() => {
         <Route path="submissions" element={<Submissions />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="contests" element={<Contests />} />
+        <Route path="solve/:id" element={<Solve />} />
       </Route>
     </Routes>
   );
