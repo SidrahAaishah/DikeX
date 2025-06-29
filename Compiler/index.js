@@ -10,6 +10,8 @@ const generateFile = require("./generateFile");
 const executeCpp = require("./executeCpp");
 const executePython  = require("./executePython");
 const executeJava = require("./executeJava");
+const generateInputFile = require('./generateInputFile');
+
 app.use(cors({
    origin: process.env.FRONTEND_URL,
   credentials: true
@@ -22,17 +24,18 @@ app.get("/",(req,res)=>{
 })
 
 app.post("/run", async (req, res) => {
-    const { code, language} = req.body;
+    const { code,input,language} = req.body;
 
     if (!code) {
         return res.status(400).json({ success: false, error: "empty code body" });
     }
 
     try {
-        const filePath = generateFile(code, language);
+        const filePath = generateFile(code,language);
+        const inputFilePath = generateInputFile(input)
         let output;
         if (language === "cpp") {
-            output = await executeCpp(filePath);
+            output = await executeCpp(filePath,inputFilePath);
         }else if(language==="py"){
             output = await executePython(filePath);
         }else{
@@ -40,7 +43,7 @@ app.post("/run", async (req, res) => {
         }
 
 
-        res.json({ filePath, output });
+        res.json({output});
     } catch (error) {
         console.error("Execution error:", error);  // <-- Add this
         res.status(500).json({ success: false, error: error.message || error.stderr || "Unknown error" });

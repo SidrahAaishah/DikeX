@@ -23,13 +23,13 @@ if (!fs.existsSync(outputPath)) {
  * systems (Linux/macOS) are happy with any executable bit, we simply use `.out`.
  */
 
-const executeCpp = (filepath) => {
+const executeCpp = (filepath,inputFilePath) => {
     const jobId = path.basename(filepath).split(".")[0];
     const outPath = path.join(outputPath, `${jobId}.exe`);
 
     return new Promise((resolve, reject) => {
         exec(
-            `g++ ${filepath} -o ${outPath} && cd ${outputPath} && .\\${jobId}.exe`,
+            `g++ ${filepath} -o ${outPath} && cd ${outputPath} && .\\${jobId}.exe < ${inputFilePath}`,
             (error, stdout, stderr) => {
                 if (error) {
                     reject({ error, stderr });
