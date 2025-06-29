@@ -5,6 +5,8 @@ const https = require('https');
 const fs = require('fs');
 const userRoutes = require('./routes/userRoutes');
 const problemRoutes = require('./routes/problemRoute.js');
+const judgeRoute = require('./routes/judgeRoute');
+
 const { DBconnection } = require('./config/db');
 
 const app = express(); 
@@ -26,7 +28,7 @@ DBconnection();
 
 app.use('/api', userRoutes);
 app.use('/api/problems', problemRoutes);
-
+ app.use('/api/judge', judgeRoute);
 
 const PORT = process.env.PORT || 5000;
 https.createServer(options, app).listen(PORT, () => {

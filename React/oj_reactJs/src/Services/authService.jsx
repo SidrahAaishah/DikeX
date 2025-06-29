@@ -6,6 +6,7 @@ const instance = axios.create({
   baseURL: `${API_URL}/api` , // 👈 cleaner
 });
 
+
 export const registerUser = (RegistrationData) => {
   return instance.post('/register', RegistrationData);
 };

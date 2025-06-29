@@ -9,6 +9,8 @@
         but feel free to break this up into smaller pieces once the app grows.
 */
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
@@ -16,21 +18,14 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 import { codeExec } from '../Services/problemService';
 
-function MyCompiler() {
-  const [code, setCode] = useState(`
-// Include the input/output stream library
-#include <iostream> 
-
-// Define the main function
-int main() { 
-    // Output "Hello World!" to the console
-    std::cout << "Hello World!"; 
-    return 0; 
-}`);
+function MyCompiler({defaultCode}) {
+  const [code, setCode] = useState(defaultCode)
   const [output, setOutput] = useState('');
   const [language, setLanguage] = useState('cpp');
+  const problemId = useSelector(state => state.problem.problemId);
 
-  const handleSubmit = async () => {
+  
+  const handleRun = async () => {
     try {
       const { data } = await codeExec(code, language);
       setOutput(data.output);
@@ -38,6 +33,13 @@ int main() {
       console.log(error.response);
     }
   };
+ const handleSubmit = async () => {
+  await axios.post(`${import.meta.env.VITE_BACKEND1_URL}/api/judge`, {
+    code,
+    language,
+    problemId 
+  });
+};
 
   return (
     <div className="container mx-auto py-8 flex flex-col items-center">
@@ -74,15 +76,22 @@ int main() {
           }}
         />
       </div>
-
+      <div>
       <button
-        onClick={handleSubmit}
+        onClick={handleRun}
         type="button"
         className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
       >
         Run
       </button>
-
+      <button
+        onClick = {handleSubmit}
+        type ="button"
+        className="ml-2 text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+      >
+        Submit
+      </button>
+      </div>
       {output &&
         <div className="outputbox mt-4 bg-gray-100 rounded-md shadow-md p-4">
           <p style={{

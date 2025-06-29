@@ -1,0 +1,7 @@
+i want that when my solve calls to the MyCompiler.jsx 
+it should send the problemId as well so that the submit button in the MyCompiler.jsx 
+can send it to the backend 1
+
+
+Perfect use-case for prop drilling! ✅ You simply need to pass the problemId (i.e. id from URL) as a prop to MyCompiler.
+

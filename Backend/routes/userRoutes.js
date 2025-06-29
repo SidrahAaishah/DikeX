@@ -8,5 +8,4 @@ router.post('/login', loginUser);
 // server.js
 router.get('/me', authenticateToken, getUser);
 
-
 module.exports = router;

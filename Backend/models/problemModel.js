@@ -33,7 +33,19 @@ const problemSchema = new mongoose.Schema({
       output: String,
     },
   ],
-}, {
+testCases: [
+    {
+      input: {
+        type: String,
+        required: true,
+      },
+      expectedOutput: {
+        type: String,
+        required: true,
+      }
+    }
+  ],
+},{
   timestamps: true,
 });
 
