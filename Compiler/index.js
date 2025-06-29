@@ -9,6 +9,7 @@ const cors = require('cors');
 const generateFile = require("./generateFile");
 const executeCpp = require("./executeCpp");
 const executePython  = require("./executePython");
+const executeJava = require("./executeJava");
 app.use(cors({
    origin: process.env.FRONTEND_URL,
   credentials: true
@@ -32,8 +33,10 @@ app.post("/run", async (req, res) => {
         let output;
         if (language === "cpp") {
             output = await executeCpp(filePath);
-        }else {
-        output = await executePython(filePath);
+        }else if(language==="py"){
+            output = await executePython(filePath);
+        }else{
+            output = await executeJava(filePath);
         }
 
 
