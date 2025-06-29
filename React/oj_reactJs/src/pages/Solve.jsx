@@ -26,6 +26,7 @@ function Solve() {
       {/* Right side - compiler */}
       <div className="w-1/2 p-4 overflow-auto">
         <MyCompiler defaultCode={'#include<iostream>\nusing namespace std;\nint main() {\n  return 0;\n}'} />
+
       </div>
     </div>
   );
