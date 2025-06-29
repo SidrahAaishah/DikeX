@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const generateFile = require("./generateFile");
 const executeCpp = require("./executeCpp");
-
+const executePython  = require("./executePython");
 app.use(cors({
    origin: process.env.FRONTEND_URL,
   credentials: true
@@ -21,7 +21,7 @@ app.get("/",(req,res)=>{
 })
 
 app.post("/run", async (req, res) => {
-    const { code, language = "cpp" } = req.body;
+    const { code, language} = req.body;
 
     if (!code) {
         return res.status(400).json({ success: false, error: "empty code body" });
@@ -29,7 +29,13 @@ app.post("/run", async (req, res) => {
 
     try {
         const filePath = generateFile(code, language);
-        const output = await executeCpp(filePath);
+        let output;
+        if (language === "cpp") {
+            output = await executeCpp(filePath);
+        }else {
+        output = await executePython(filePath);
+        }
+
 
         res.json({ filePath, output });
     } catch (error) {

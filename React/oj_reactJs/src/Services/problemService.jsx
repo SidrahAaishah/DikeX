@@ -15,5 +15,7 @@ const compilerInstance = axios.create({
 export const fetchProblems = () => instance.get('/problems');
 export const fetchProblemById = (id) => instance.get(`/problems/${id}`);
 
-export const codeExec = (code, language) =>
-  compilerInstance.post('/run', { code, language });
+export const codeExec = async (code, language) => {
+  const payload = { code, language };
+  return await axios.post(import.meta.env.VITE_BACKEND_URL, payload);
+};
