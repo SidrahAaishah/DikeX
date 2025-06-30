@@ -1,0 +1,10 @@
+what is the difference between customInput and input
+🔁 customInput vs input
+Term	Context	Meaning
+customInput	Frontend (React)	The variable storing the value typed by the user in the input box
+input	Backend (Node.js)	The key expected in the request body (i.e., req.body.input)
+
+Why They’re Different:
+On the frontend, you name your state variable anything (customInput here).
+
+On the backend, the property name in the JSON payload must match the key you're accessing (like input).

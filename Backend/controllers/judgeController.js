@@ -1,6 +1,7 @@
 const axios = require('axios');
 const https = require('https');
 const Problem = require('../models/problemModel');
+const Submission = require('../models/submissionModel');
 
 const judgeCode = async (req, res) => {
   const { code, language, problemId } = req.body;
@@ -51,11 +52,20 @@ const judgeCode = async (req, res) => {
           expected: test.expectedOutput,
           actual: err.response?.data?.error || 'Execution error',
           status: 'Error'
-        });
+        }); 
       }
     }
 
     const allPassed = results.every(r => r.status === 'Passed');
+    await Submission.create({
+    userId: req.user._id, // make sure req.user is set correctly from auth middleware
+    problemId,
+    code,
+    language,
+    verdict: allPassed ? 'Accepted' : 'Failed',
+    testResults: results
+  });
+
     res.json({
       verdict: allPassed ? 'Accepted' : 'Failed',
       results
@@ -67,6 +77,7 @@ const judgeCode = async (req, res) => {
       details: err.message
     });
   }
+
 };
 
 module.exports = { judgeCode };

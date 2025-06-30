@@ -6,6 +6,7 @@ const fs = require('fs');
 const userRoutes = require('./routes/userRoutes');
 const problemRoutes = require('./routes/problemRoute.js');
 const judgeRoute = require('./routes/judgeRoute');
+const submissionRoute = require('./routes/submissionRoute');
 
 const { DBconnection } = require('./config/db');
 
@@ -25,10 +26,10 @@ const options = {
 };
 
 DBconnection();
-
 app.use('/api', userRoutes);
 app.use('/api/problems', problemRoutes);
- app.use('/api/judge', judgeRoute);
+app.use('/api/judge',judgeRoute);
+ app.use('/api/submissions', submissionRoute);
 
 const PORT = process.env.PORT || 5000;
 https.createServer(options, app).listen(PORT, () => {

@@ -92,7 +92,8 @@ exports.getUser = (req, res) => {
     const user = req.user;
     res.status(200).json({
       name: user.firstName + " " + user.lastName,
-      email: user.email
+      email: user.email,
+      _id:user._id
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });

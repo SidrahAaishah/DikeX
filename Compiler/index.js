@@ -45,7 +45,7 @@ app.post("/run", async (req, res) => {
 
         res.json({output});
     } catch (error) {
-        console.error("Execution error:", error);  // <-- Add this
+        console.error("Execution error:", error);  
         res.status(500).json({ success: false, error: error.message || error.stderr || "Unknown error" });
     }
 });
