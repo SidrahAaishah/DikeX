@@ -16,6 +16,7 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import { useDispatch } from 'react-redux';
 import { login ,setLoading} from './store/authSlice'; // adjust path
 import { getCurrentUser } from './Services/authService';
+import GenieTab from './pages/GenieTab';
 
 function App() {
   const location = useLocation();
@@ -48,6 +49,7 @@ useEffect(() => {
       <Route path="/dashboard" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route index element={<Home />} />
         <Route path="problemset" element={<Problemset />} />
+        <Route path="genie" element={<GenieTab/>} />
         <Route path="submissions" element={<Submissions />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="contests" element={<Contests />} />

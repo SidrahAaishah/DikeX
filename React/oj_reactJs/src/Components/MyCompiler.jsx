@@ -7,6 +7,8 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 import { codeExec } from '../Services/problemService';
+import GenieHelp from '../Components/GenieHelp';
+
 
 function MyCompiler({ defaultCode }) {
   const [code, setCode] = useState(defaultCode);
@@ -132,12 +134,8 @@ function MyCompiler({ defaultCode }) {
           <h3 className="font-bold mb-2">Submission Result: {verdictResult.verdict}</h3>
 
           {verdictResult.aiFeedback && (
-  <div className="mt-4 p-4 bg-yellow-100 border border-yellow-300 rounded text-sm font-mono whitespace-pre-wrap">
-    <strong>Dike Genie says:</strong>
-    <br />
-    {verdictResult.aiFeedback}
-  </div>
-)}
+            <GenieHelp feedback={verdictResult.aiFeedback} />
+          )}
 
           {verdictResult.results && (
             <ul className="list-disc list-inside text-sm font-mono">

@@ -12,7 +12,7 @@ const executePython  = require("./executePython");
 const executeJava = require("./executeJava");
 const generateInputFile = require('./generateInputFile');
 const generateAiResponse = require('./generateAiResponse');
-
+const genieExplanation = require('./genieExplanation');
 app.use(cors({
    origin: process.env.FRONTEND_URL,
   credentials: true
@@ -49,6 +49,21 @@ app.post("/run", async (req, res) => {
         console.error("Execution error:", error);  
         res.status(500).json({ success: false, error: error.message || error.stderr || "Unknown error" });
     }
+});
+app.post("/genieExplain", async (req, res) => {
+  const { problemStatement, type } = req.body;
+
+  if (!problemStatement || !type) {
+    return res.status(400).json({ success: false, error: "Missing problemStatement or type" });
+  }
+
+  try {
+    const response = await genieExplanation({ problemStatement, type });
+    res.json({ success: true, response });
+  } catch (err) {
+    console.error("GenieExplain error:", err.message);
+    res.status(500).json({ success: false, error: "Gemini failed to respond" });
+  }
 });
 
 app.post("/ai-review",async(req,res)=>{

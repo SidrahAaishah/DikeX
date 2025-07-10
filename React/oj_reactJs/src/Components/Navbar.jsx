@@ -143,6 +143,14 @@ const Navbar = () => {
               </li>
               <li>
                 <a
+                  href="/dashboard/genie"
+                  className="text-gray-900 dark:text-white hover:underline"
+                >
+                  Genie_Dike
+                </a>
+              </li>
+              <li>
+                <a
                   href="/dashboard/contests"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
