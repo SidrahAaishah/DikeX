@@ -3,6 +3,9 @@ import Lottie from 'lottie-react';
 import aiBot from '../assets/ai-bot.json'; // download a Lottie file for this
 import AIIntegrations from './AIIntegrations';
 import Footer from '../Components/Footer';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 const features = [
   {
@@ -28,6 +31,17 @@ const features = [
 ];
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const handleStart = () => {
+    console.log('isAuthenticated:', isAuthenticated);
+    if (isAuthenticated) {
+      navigate('/dashboard/problemset');
+    } else {
+      navigate('/login');
+    }
+  };
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Hero Section */}
@@ -56,12 +70,12 @@ export default function LandingPage() {
           <p className="text-gray-400 mb-6">
             Your all-in-one platform to improve coding skills, prepare for interviews, and compete globally.
           </p>
-          <a
-            href="/login"
+          <button
+            onClick={handleStart}
             className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded"
           >
             Get Started
-          </a>
+          </button>
         </div>
 
         {/* AI Bot Lottie */}
