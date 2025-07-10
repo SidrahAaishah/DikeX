@@ -24,6 +24,9 @@ const submissionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  aiFeedback: {
+  type: String,
+},
 });
 
 module.exports = mongoose.model('Submission', submissionSchema);

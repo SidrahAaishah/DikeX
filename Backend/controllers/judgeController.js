@@ -57,18 +57,36 @@ const judgeCode = async (req, res) => {
     }
 
     const allPassed = results.every(r => r.status === 'Passed');
+    const verdict = allPassed ? 'Accepted' : 'Failed';
+
+    // ✅ 💬 Ask compiler backend for AI feedback
+    let aiFeedback = '';
+    try {
+      const aiRes = await axios.post(
+        `${process.env.JUDGE_BACKEND_URL}/ai-review`,
+        { code, verdict, testResults: results },
+        { httpsAgent: agent }
+      );
+      aiFeedback = aiRes.data.response;
+    } catch (aiErr) {
+      console.error("Error fetching AI feedback:", aiErr.message);
+      aiFeedback = 'AI feedback unavailable due to internal error.';
+    }
+
     await Submission.create({
     userId: req.user._id, // make sure req.user is set correctly from auth middleware
     problemId,
     code,
     language,
-    verdict: allPassed ? 'Accepted' : 'Failed',
-    testResults: results
+    verdict,
+    testResults: results,
+    aiFeedback
   });
 
     res.json({
       verdict: allPassed ? 'Accepted' : 'Failed',
-      results
+      results,
+      aiFeedback
     });
 
   } catch (err) {

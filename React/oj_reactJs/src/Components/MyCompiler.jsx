@@ -131,6 +131,14 @@ function MyCompiler({ defaultCode }) {
         <div className="verdictbox mt-4 bg-gray-100 rounded-md shadow-md p-4 w-full max-w-lg">
           <h3 className="font-bold mb-2">Submission Result: {verdictResult.verdict}</h3>
 
+          {verdictResult.aiFeedback && (
+  <div className="mt-4 p-4 bg-yellow-100 border border-yellow-300 rounded text-sm font-mono whitespace-pre-wrap">
+    <strong>Dike Genie says:</strong>
+    <br />
+    {verdictResult.aiFeedback}
+  </div>
+)}
+
           {verdictResult.results && (
             <ul className="list-disc list-inside text-sm font-mono">
               {verdictResult.results.map((t, index) => (

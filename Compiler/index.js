@@ -11,6 +11,7 @@ const executeCpp = require("./executeCpp");
 const executePython  = require("./executePython");
 const executeJava = require("./executeJava");
 const generateInputFile = require('./generateInputFile');
+const generateAiResponse = require('./generateAiResponse');
 
 app.use(cors({
    origin: process.env.FRONTEND_URL,
@@ -26,7 +27,7 @@ app.get("/",(req,res)=>{
 app.post("/run", async (req, res) => {
     const { code,input,language} = req.body;
 
-    if (!code) {
+    if (code===undefined || code.trim()==='') {
         return res.status(400).json({ success: false, error: "empty code body" });
     }
 
@@ -50,6 +51,27 @@ app.post("/run", async (req, res) => {
     }
 });
 
+app.post("/ai-review",async(req,res)=>{
+    const { code, verdict, testResults } = req.body;
+
+if (typeof code !== 'string' || code.trim() === '') {
+  return res.status(400).json({ success: false, error: "OOPS!! No valid code to review." });
+}
+
+    try {
+    const aiResponse = await generateAiResponse({ code, verdict, testResults });
+    res.json({
+      success: true,
+      response: aiResponse
+    });
+  } catch (error) {
+    console.error("Gemini error:", error.message);
+    res.status(500).json({
+      success: false,
+      response: "Gemini couldn't generate a response at the moment."
+    });
+  }
+});
 
 const options = {
     key: fs.readFileSync('./cert/server.key'),
