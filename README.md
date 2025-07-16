@@ -39,7 +39,7 @@ DikeX is a full-stack online judge platform where users can submit, compile, and
 ## ✅ Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/DikeX.git
+git clone https://github.com/SidrahAaishah/DikeX.git
 cd DikeX
 ```
 ## :📁 Step 2: Project Structure
