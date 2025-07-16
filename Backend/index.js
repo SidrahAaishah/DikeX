@@ -1,7 +1,8 @@
 require('dotenv').config(); // loads environment variable from the file .env
 const express = require('express');
 const cors = require('cors');
-const https = require('https');
+// const https = require('https');
+const http = require('http'); // Use http for simplicity in this example
 const fs = require('fs');
 const userRoutes = require('./routes/userRoutes');
 const problemRoutes = require('./routes/problemRoute.js');
@@ -20,10 +21,10 @@ app.use(cors({
 app.use(express.json()); //It’s a middleware in Express that tells your app: “📦 Hey, if the incoming request has JSON data, automatically parse it and make it available in req.body.” like { name: "Sidrah", age: 20 } accepts with this middleware
 app.use(express.urlencoded({ extended: true }));
 // Read cert paths from .env
-const options = {
-  key: fs.readFileSync(process.env.SSL_KEY_PATH),
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH)
-};
+// const options = {
+//   key: fs.readFileSync(process.env.SSL_KEY_PATH),
+//   cert: fs.readFileSync(process.env.SSL_CERT_PATH)
+// };
 
 DBconnection();
 app.use('/api', userRoutes);
@@ -32,6 +33,6 @@ app.use('/api/judge',judgeRoute);
  app.use('/api/submissions', submissionRoute);
 
 const PORT = process.env.PORT || 5000;
-https.createServer(options, app).listen(PORT, () => {
-  console.log(`HTTPS Server running at https://localhost:${PORT}`);
+http.createServer(app).listen(PORT, () => {
+  console.log(`HTTP Server running at http://localhost:${PORT}`);
 });

@@ -1,8 +1,8 @@
 // problemservice.jsx
 import axios from 'axios';
 
-const API_URL = 'https://localhost:5000';
-const API_URL_COMPILER = 'https://localhost:8000';
+const API_URL = 'http://localhost:5000';
+const API_URL_COMPILER = 'http://localhost:8000';
 
 const instance = axios.create({
   baseURL: `${API_URL}/api`,

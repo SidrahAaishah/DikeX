@@ -6,6 +6,8 @@ WORKDIR /app
 
 # Copy dependency files first
 COPY package*.json ./
+ENV PORT=8000
+ENV FRONTEND_URL=http://localhost:5173
 
 # Install Node.js dependencies
 RUN npm install

@@ -1,5 +1,6 @@
 require('dotenv').config(); 
-const https  = require('https');
+// const https  = require('https');
+const http = require('http'); // Use http for simplicity in this example
 const fs = require('fs');
 const { urlencoded } = require("body-parser");
 const express  = require("express");
@@ -88,11 +89,11 @@ if (typeof code !== 'string' || code.trim() === '') {
   }
 });
 
-const options = {
-    key: fs.readFileSync('./cert/server.key'),
-    cert: fs.readFileSync('./cert/server.cert')
-};
+// const options = {
+//     key: fs.readFileSync('./cert/server.key'),
+//     cert: fs.readFileSync('./cert/server.cert')
+// };
 
-https.createServer(options, app).listen(process.env.PORT, () => {
-    console.log(`HTTPS Server running on port ${process.env.PORT}`);
+http.createServer(app).listen(process.env.PORT, () => {
+    console.log(`HTTP Server running on port ${process.env.PORT}`);
 });
