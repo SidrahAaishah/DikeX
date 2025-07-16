@@ -1,3 +1,18 @@
 what is the diffrerence between node22 and alpine other than being light weight
 
 docker works on linus based so not .exe but .out only
+
+
+
+2. 🔁 Rebuild and Restart Docker Container
+Run the following commands from your project root:
+
+bash
+Copy
+Edit
+docker stop compiler-backend
+docker rm compiler-backend
+docker build -t oj-compiler-backend .
+docker run -d -p 8000:8000 --env-file .env --name compiler-backend oj-compiler-backend
+⚠️ This is necessary because Docker only loads .env when the container is created — not just started.
+
