@@ -9,7 +9,7 @@ const GenieModal = ({ problem, onClose }) => {
   const handleRequest = async (type) => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:8000/genieExplain', {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/genieExplain`, {
         problemStatement: problem.statement,
         type
       });

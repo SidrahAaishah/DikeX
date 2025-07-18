@@ -17,5 +17,5 @@ export const fetchProblemById = (id) => instance.get(`/problems/${id}`);
 
 export const codeExec = async (code, input,language) => {
   const payload = { code,input,language };
-  return await axios.post(import.meta.env.VITE_BACKEND_URL, payload);
+  return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/run`, payload);
 };
