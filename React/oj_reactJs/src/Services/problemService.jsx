@@ -1,21 +1,17 @@
 // problemservice.jsx
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
-const API_URL_COMPILER = 'http://localhost:8000';
+const API_URL = `${import.meta.env.VITE_BACKEND1_URL}`;
 
 const instance = axios.create({
   baseURL: `${API_URL}/api`,
 });
 
-const compilerInstance = axios.create({
-  baseURL: API_URL_COMPILER,
-});
 
 export const fetchProblems = () => instance.get('/problems');
 export const fetchProblemById = (id) => instance.get(`/problems/${id}`);
 
 export const codeExec = async (code, input,language) => {
   const payload = { code,input,language };
-  return await axios.post(`${import.meta.env.VITE_BACKEND_URL}/run`, payload);
+  return await instance.post('/run', payload);
 };

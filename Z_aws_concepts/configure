@@ -1,0 +1,97 @@
+here are the steps i think i have to do correct me or add if anything else needed
+1. login to my instance 
+2.cd keys
+3.chmod 400 "compiler-backend.pem"
+4.ssh -i "compiler-backend.pem" ec2-user@ec2-3-111-33-11.ap-south-1.compute.amazonaws.com
+5.yes
+the after login
+install node.js and dependencies
+1. sudo apt update
+2.sudo apt install nodejs npm
+then upload  my backend project
+1.tell me the use of scp to tranfer from my local machine the backend folder is in realoj/Backend
+2.cd backend 
+3. npm install
+
+set environment variables
+1. touch .env
+2nano .env and then copy paste my actual env to this
+
+run the non dockerized backjedn
+nodemon index.js
+or use pm2
+
+npm install -g pm2
+pm2 start index.js
+pm2 save
+pm2 startup
+
+and then 
+llow port 5000 in EC2 security group
+Go to EC2 → Security Groups → Inbound Rules
+
+Add a new rule:
+
+Type: Custom TCP
+
+Port Range: 5000
+
+Source: 0.0.0.0/0 (or restrict to your IP for security)
+
+and then test
+
+
+but with my dockerized compiler backedn this worked correctly
+
+
+ChatGPT said:
+Great observation — here's why your Dockerized compiler backend worked with just localhost, but your main backend on EC2 needs 0.0.0.0:
+
+🐳 In Docker:
+When you write:
+
+js
+Copy
+Edit
+.listen(process.env.PORT)
+it binds to localhost inside the container. Docker then maps that to a host port via -p (like -p 5000:5000). So:
+
+The container’s localhost is exposed to your machine (or EC2) using Docker’s networking.
+
+This works fine because Docker handles the port mapping for you.
+
+💻 On EC2 (Non-Docker App):
+You're running Node.js directly on the EC2 host, so:
+
+localhost binds the server only to the internal interface.
+
+External users (like you on your browser) hitting EC2's public IP won’t be able to connect — because the app isn’t listening on that interface.
+
+✅ Solution:
+For non-Docker apps on EC2, always bind to '0.0.0.0':
+
+js
+Copy
+Edit
+.listen(process.env.PORT, '0.0.0.0')
+This makes your app accessible both:
+
+from the EC2 instance itself (localhost)
+
+and from the internet via its public IP
+
+Let me know if you'd like me to check your exact index.js or Dockerfile for clarity.
+
+
+
+
+
+
+
+
+
+
+
+Tools
+
+

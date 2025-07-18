@@ -1,9 +1,9 @@
 // GenieTab.jsx
 import React, { useEffect, useState } from 'react';
 import { fetchProblems } from '../Services/problemService';
-import GenieIntro from '../components/GenieIntro';
-import ProblemCard from '../components/ProblemCard';
-import GenieModal from '../components/GenieModal';
+import GenieIntro from '../Components/GenieIntro';
+import ProblemCard from '../Components/ProblemCard';
+import GenieModal from '../Components/GenieModal';
 
 const GenieTab = () => {
   const [problems, setProblems] = useState([]);

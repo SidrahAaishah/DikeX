@@ -5,10 +5,11 @@ const cors = require('cors');
 const http = require('http'); // Use http for simplicity in this example
 const fs = require('fs');
 const userRoutes = require('./routes/userRoutes');
-const problemRoutes = require('./routes/problemRoute.js');
+const problemRoutes = require('./routes/problemRoute');
 const judgeRoute = require('./routes/judgeRoute');
 const submissionRoute = require('./routes/submissionRoute');
-
+const aiRoutes = require('./routes/aiRoutes');
+const runRoute = require('./routes/runRoute');
 const { DBconnection } = require('./config/db');
 
 const app = express(); 
@@ -17,6 +18,7 @@ app.use(cors({
   origin: process.env.FRONTEND_URL, // Enable CORS with frontend URL from .env // CORS enable the frontend and backend talk , like if house A wants some data from House B // House B only allows if it says that yes House A is not a thief
   credentials: true
 }));
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); //It’s a middleware in Express that tells your app: “📦 Hey, if the incoming request has JSON data, automatically parse it and make it available in req.body.” like { name: "Sidrah", age: 20 } accepts with this middleware
 app.use(express.urlencoded({ extended: true }));
@@ -27,12 +29,16 @@ app.use(express.urlencoded({ extended: true }));
 // };
 
 DBconnection();
+app.get('/', (req, res) => {
+  res.send('Hello World from backend!');
+});
+app.use('/api/run', runRoute);
+app.use('/genieExplain',aiRoutes)
 app.use('/api', userRoutes);
 app.use('/api/problems', problemRoutes);
 app.use('/api/judge',judgeRoute);
  app.use('/api/submissions', submissionRoute);
 
-const PORT = process.env.PORT || 5000;
-http.createServer(app).listen(PORT, () => {
-  console.log(`HTTP Server running at http://localhost:${PORT}`);
+ http.createServer(app).listen(PORT, '0.0.0.0', () => {
+    console.log(`HTTP Server running on port ${PORT}`);
 });

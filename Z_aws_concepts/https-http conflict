@@ -1,0 +1,29 @@
+my main backend is only making api call 
+I have a doubt though sir
+let say 
+1. Compiler hosted on aws - no domain name - no ssl certificate
+2.Main Backend + frontend hosted on render - ssl yes -https yes
+
+so even when my frontend is not making direct api call and my main backend is making the api call to cpompiler backend it should create the https-http confict?
+
+
+
+That’s a great question — and here’s the clear answer:
+
+✅ No, it will NOT create an HTTPS-HTTP conflict if your frontend talks only to your main backend over HTTPS, and your main backend (on Render) calls your compiler backend (on AWS EC2) over HTTP.
+
+Why?
+Browser mixed content policy only applies to client-side requests (i.e., frontend JavaScript making HTTP calls from an HTTPS page).
+
+If your main backend server (Render) is the one calling HTTP://3.111.x.x:PORT, then it’s a server-to-server request, and no mixed content warning/error will occur.
+
+In short:
+✅ Frontend → HTTPS → Main Backend ✅
+
+✅ Main Backend → HTTP → Compiler Backend ✅
+
+❌ Frontend → HTTP → Compiler Backend ❌ (This would trigger mixed content errors)
+
+If you later decide to expose the compiler backend directly to frontend (e.g., WebSocket, real-time code output, etc.), then yes, you’ll need to secure it (HTTPS + domain) to avoid browser errors.
+
+Let me know if you’re planning that kind of flow — we can adjust accordingly.
