@@ -11,7 +11,7 @@ import Leaderboard from './pages/Leaderboard';
 import Problemset from './pages/Problemset';
 import Submissions from './pages/Submissions';
 import Solve from './pages/Solve';
-import Layout from './Components/layout';
+import Layout from './Components/Layout';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { useDispatch } from 'react-redux';
 import { login ,setLoading} from './store/authSlice'; // adjust path
