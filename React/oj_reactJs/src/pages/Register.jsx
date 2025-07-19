@@ -15,21 +15,31 @@ function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+  if (form.password !== form.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
 
-    try {
-      const res = await registerUser(form);
-      alert(res.data || "Registered successfully!");
-    } catch (err) {
-      alert(err.response?.data || "Something went wrong");
+  try {
+    const res = await registerUser(form);
+    const { token, user, message } = res.data;
+
+    if (token) {
+      localStorage.setItem("token", token); // ✅ Save token for auto login
+      alert(message || "Registered successfully!");
+
+      // Optional: redirect to dashboard or profile
+      window.location.href = "/dashboard"; // or use useNavigate from react-router
+    } else {
+      alert("Registration successful, but login failed.");
     }
-  };
+  } catch (err) {
+    alert(err.response?.data || "Something went wrong");
+  }
+};
 
   return (
     <RegisterForm
