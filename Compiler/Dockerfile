@@ -17,7 +17,8 @@ RUN apk update && apk add --no-cache \
     g++ \
     openjdk17 \
     python3 \
-    py3-pip
+    py3-pip \
+    coreutils
 
 # Copy rest of your app
 COPY . .
