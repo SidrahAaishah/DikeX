@@ -16,3 +16,6 @@ docker build -t oj-compiler-backend .
 docker run -d -p 8000:8000 --env-file .env --name compiler-backend oj-compiler-backend
 ⚠️ This is necessary because Docker only loads .env when the container is created — not just started.
 
+we have to specifically pass the env file to the docker for it to work properly during the run time
+
+
