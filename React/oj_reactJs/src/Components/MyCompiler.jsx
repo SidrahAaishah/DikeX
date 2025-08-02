@@ -62,7 +62,7 @@ function MyCompiler() {
       <div className="flex justify-between items-center mb-2">
         <h1 className="text-xl font-bold text-white">DikeX Crusher</h1>
         <select value={language} onChange={(e) => { const l = e.target.value; setLanguage(l); setCode(languageTemplates[l]); }} className="bg-[#1e1e1e] text-white border border-gray-600 rounded-md py-1.5 px-3 focus:outline-none focus:border-blue-500">
-          <option value="cpp">C++</option><option value="c">C</option><option value="py">Python</option><option value="java">Java</option>
+          <option value="cpp">C++</option><option value="py">Python</option><option value="java">Java</option>
         </select>
       </div>
 
