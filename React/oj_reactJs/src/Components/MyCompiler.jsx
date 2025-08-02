@@ -7,7 +7,6 @@ import GenieHelp from '../Components/GenieHelp'; // Ensure this component exists
 
 const languageTemplates = {
   cpp: `#include <iostream>\nusing namespace std;\n\nint main() {\n    // your code goes here\n    return 0;\n}`,
-  c: `#include <stdio.h>\n\nint main() {\n    // your code goes here\n    return 0;\n}`,
   py: `# your code goes here`,
   java: `public class Main {\n    public static void main(String[] args) {\n        // your code goes here\n        System.out.println("Hello, World!");\n    }\n}`,
 };
